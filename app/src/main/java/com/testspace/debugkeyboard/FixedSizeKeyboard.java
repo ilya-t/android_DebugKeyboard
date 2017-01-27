@@ -3,12 +3,13 @@ package com.testspace.debugkeyboard;
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
 
+import javax.inject.Inject;
+
 /**
  * Created by i-ts on 26.01.17.
  */
 public class FixedSizeKeyboard extends Keyboard {
     private final int width;
-
     private final int height;
 
     public FixedSizeKeyboard(Context context, int resId, int modeChange, int width, int height) {

@@ -1,21 +1,13 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
           android:horizontalGap="0px"
           android:verticalGap="0px"
+          android:keyHeight="20dp"
+          android:keyWidth="20dp"
     >
-
     <Row>
-        <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
-        <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
-        <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
-    </Row>
-    <Row>
-        <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
-        <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
-        <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
-    </Row>
-    <Row>
-        <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
-        <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
-        <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
+        <!--DPAD up-->
+        <Key android:codes="19" android:keyLabel="higher" android:keyEdgeFlags="left"/>
+        <!--DPAD down-->
+        <Key android:codes="20" android:keyLabel="lower" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
