@@ -24,19 +24,16 @@ public class KeyboardActionDispatcher implements KeyboardView.OnKeyboardActionLi
     @Nullable
     private ActionListener actionListener;
     private Context context;
-    private Keyboard keyboard;
     private InputMethodService service;
     private KeyboardViewHolder keyboardViewHolder;
 
     @Inject
     public KeyboardActionDispatcher(Context context,
-                                    Keyboard keyboard,
                                     KeyboardViewHolder keyboardViewHolder,
                                     InputMethodService service) {
         this.keyboardViewHolder = keyboardViewHolder;
         this.service = service;
         this.context = context;
-        this.keyboard = keyboard;
     }
 
     public void setActionListener(@Nullable ActionListener actionListener) {
@@ -45,17 +42,24 @@ public class KeyboardActionDispatcher implements KeyboardView.OnKeyboardActionLi
 
     @Override
     public void onKey(int primaryCode, int[] keyCodes) {
+        Log.d("_debug_", String.format(Locale.US, "Key: %d", primaryCode));
+        KeyboardView keyboardView = keyboardViewHolder.getKeyboardView();
+        if (keyboardView == null) {
+            return;
+        }
+
         InputConnection ic = service.getCurrentInputConnection();
         playClick(primaryCode);
         performAction(primaryCode);
+        if (1==1)return;
         switch (primaryCode) {
             case Keyboard.KEYCODE_DELETE:
                 ic.deleteSurroundingText(1, 0);
                 break;
             case Keyboard.KEYCODE_SHIFT:
                 caps = !caps;
-                keyboard.setShifted(caps);
-                keyboardViewHolder.getView().invalidateAllKeys();
+                keyboardView.getKeyboard().setShifted(caps);
+                keyboardView.invalidateAllKeys();
                 break;
             case Keyboard.KEYCODE_DONE:
                 ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));

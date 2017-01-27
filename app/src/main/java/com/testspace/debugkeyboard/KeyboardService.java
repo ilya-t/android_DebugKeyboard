@@ -30,12 +30,11 @@ public class KeyboardService extends InputMethodService {
         super.onCreate();
         Dagger.init(this);
         Dagger.component().inject(this);
-        keyboardController.toString();
     }
 
     @Override
     public View onCreateInputView() {
-        return keyboardViewHolder.createView();
+        return keyboardViewHolder.createView(keyboardController.getKeyboardSize());
     }
 
 
