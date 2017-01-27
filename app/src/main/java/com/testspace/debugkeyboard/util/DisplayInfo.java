@@ -1,4 +1,4 @@
-package com.testspace.debugkeyboard;
+package com.testspace.debugkeyboard.util;
 
 import android.content.Context;
 

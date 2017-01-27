@@ -6,21 +6,21 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.testspace.debugkeyboard.dagger.Dagger;
+import com.testspace.debugkeyboard.viewholders.KeyboardViewHolder;
 
 import javax.inject.Inject;
 
 public class KeyboardService extends InputMethodService {
-    @Inject
-    KeyboardController keyboardController;
+    @Inject KeyboardController keyboardController;
     @Inject
     KeyboardViewHolder keyboardViewHolder;
-    @Inject
-    KeyboardActionDispatcher keyboardActionDispatcher;
+    @Inject KeyEventsTranslator keyEventsTranslator;
+    @Inject RootViewController rootViewController;
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (event.getSource() == InputDevice.SOURCE_KEYBOARD) {
-            keyboardActionDispatcher.onKey(keyCode, new int[]{keyCode});
+            keyEventsTranslator.sendKeyPressed(keyCode);
         }
         return super.onKeyUp(keyCode, event);
     }

@@ -1,5 +1,8 @@
 package com.testspace.debugkeyboard;
 
+import com.testspace.debugkeyboard.util.DisplayInfo;
+import com.testspace.debugkeyboard.viewholders.KeyboardViewHolder;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -9,10 +12,10 @@ public class KeyboardController {
     private int keyboardSize;
 
     @Inject
-    KeyboardController(KeyboardActionDispatcher keyboardActionDispatcher,
+    KeyboardController(ActionsDispatcher actionsDispatcher,
                        KeyboardViewHolder keyboardViewHolder,
                        DisplayInfo displayInfo) {
-        keyboardActionDispatcher.setActionListener(new ActionListenerImpl());
+        actionsDispatcher.addActionListener(new ActionListenerImpl());
         this.keyboardViewHolder = keyboardViewHolder;
         keyboardSize = displayInfo.getHeight() / 3;
     }

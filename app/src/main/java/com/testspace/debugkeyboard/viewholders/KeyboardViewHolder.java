@@ -1,39 +1,42 @@
-package com.testspace.debugkeyboard;
+package com.testspace.debugkeyboard.viewholders;
 
 import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.support.annotation.Nullable;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.testspace.debugkeyboard.dagger.Dagger;
+import com.testspace.debugkeyboard.util.DisplayInfo;
+import com.testspace.debugkeyboard.FixedSizeKeyboard;
+import com.testspace.debugkeyboard.R;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
 public class KeyboardViewHolder {
-    private final LayoutInflater inflater;
     private final DisplayInfo displayInfo;
     private final Context context;
     private final InputMethodService service;
+    private final RootViewHolder rootViewHolder;
 
     @Nullable private KeyboardView keyboardView;
-    private ViewGroup rootView;
+    private List<ViewCreatedCallback<KeyboardView>> callbackList = new CopyOnWriteArrayList<>();
 
     @Inject
     KeyboardViewHolder(Context context,
-                       LayoutInflater inflater,
+                       RootViewHolder rootViewHolder,
                        DisplayInfo displayInfo,
                        InputMethodService service) {
         this.context = context;
         this.service = service;
+        this.rootViewHolder = rootViewHolder;
         this.displayInfo = displayInfo;
-        this.inflater = inflater;
     }
 
     @Nullable
@@ -42,29 +45,19 @@ public class KeyboardViewHolder {
     }
 
     public View createView(int height) {
-        keyboardView = createRootView();
+        ViewGroup rootView = rootViewHolder.createRoot();
+        keyboardView = (KeyboardView) rootView.findViewById(R.id.keyboardView);
         keyboardView.setKeyboard(createKeyboard(height));
-        keyboardView.setOnKeyboardActionListener(Dagger.component().getKeyboardActionListener());
+        for (ViewCreatedCallback<KeyboardView> callback : callbackList) {
+            callback.onViewCreated(keyboardView);
+        }
         return rootView;
     }
 
-    private KeyboardView createRootView() {
-        rootView = (ViewGroup) inflater.inflate(R.layout.keyboard_root_layout, null);
-        rootView.findViewById(R.id.increase).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Dagger.component().getKeyboardActionListener().onKey(KeyEvent.KEYCODE_DPAD_UP, new int[]{KeyEvent.KEYCODE_DPAD_UP});
-            }
-        });
-        rootView.findViewById(R.id.decrease).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Dagger.component().getKeyboardActionListener().onKey(KeyEvent.KEYCODE_DPAD_DOWN, new int[]{KeyEvent.KEYCODE_DPAD_DOWN});
-            }
-        });
-        return (KeyboardView) rootView.findViewById(R.id.keyboardView);
-        //inflater.inflate(R.layout.keyboard, null)
+    public void updateKeyboard(int height) {
+        service.setInputView(createView(height));
     }
+
 /*
         int width = getResources().getDisplayMetrics().widthPixels;
 
@@ -84,7 +77,9 @@ public class KeyboardViewHolder {
                 displayInfo.getWidth(), height);
     }
 
-    public void updateKeyboard(int height) {
-        service.setInputView(createView(height));
+    public void addCallbackListener(ViewCreatedCallback<KeyboardView> callback) {
+        if (!callbackList.contains(callback)) {
+            callbackList.add(callback);
+        }
     }
 }

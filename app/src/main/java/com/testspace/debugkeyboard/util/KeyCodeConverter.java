@@ -1,4 +1,4 @@
-package com.testspace.debugkeyboard;
+package com.testspace.debugkeyboard.util;
 
 import java.util.Arrays;
 import java.util.HashSet;

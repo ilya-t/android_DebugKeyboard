@@ -4,7 +4,7 @@ import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.view.LayoutInflater;
 
-import com.testspace.debugkeyboard.DisplayInfo;
+import com.testspace.debugkeyboard.util.DisplayInfo;
 
 import javax.inject.Singleton;
 
