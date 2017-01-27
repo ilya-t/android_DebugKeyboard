@@ -33,4 +33,12 @@ public class ActionsDispatcher implements ActionListener{
             listener.onSizeDecPressed();
         }
     }
+
+    @Override
+    public void setSize(int size) {
+        for (ActionListener listener : listenerList) {
+            listener.setSize(size);
+        }
+
+    }
 }

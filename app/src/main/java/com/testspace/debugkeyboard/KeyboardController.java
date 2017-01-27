@@ -39,5 +39,10 @@ public class KeyboardController {
         public void onSizeDecPressed() {
             setKeyboardSize(keyboardSize/2);
         }
+
+        @Override
+        public void setSize(int size) {
+            setKeyboardSize(size);
+        }
     }
 }

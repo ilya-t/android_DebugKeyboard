@@ -7,4 +7,5 @@ package com.testspace.debugkeyboard;
 public interface ActionListener {
     void onSizeIncPressed();
     void onSizeDecPressed();
+    void setSize(int size);
 }
