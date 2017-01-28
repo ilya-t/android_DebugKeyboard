@@ -2,6 +2,7 @@ package com.testspace.debugkeyboard;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
@@ -84,9 +85,11 @@ public class RootViewController {
     private void represent(TextView textView, SeekBar seekBar) {
         float value = seekBar.getProgress();
         float total = seekBar.getMax();
-        float percent = (value / total) * 100f;
-        String percentage = ((int) percent) + "% (" + (int) value + "/" + (int) total + " px)";
-        textView.setText(percentage);
+        int percent = (int) ((value / total) * 100f);
 
+        String percentage = String.format(Locale.US,
+                "%d%% (%d / %d px)", percent, (int) value, (int) total);
+
+        textView.setText(percentage);
     }
 }

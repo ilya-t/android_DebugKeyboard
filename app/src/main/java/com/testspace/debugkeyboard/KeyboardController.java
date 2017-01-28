@@ -32,12 +32,12 @@ public class KeyboardController {
     private class ActionListenerImpl implements ActionListener {
         @Override
         public void onSizeIncPressed() {
-            setKeyboardSize(keyboardSize*2);
+            setKeyboardSize(keyboardSize+1);
         }
 
         @Override
         public void onSizeDecPressed() {
-            setKeyboardSize(keyboardSize/2);
+            setKeyboardSize(keyboardSize-1);
         }
 
         @Override
