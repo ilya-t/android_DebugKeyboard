@@ -40,10 +40,13 @@ public class RootViewHolder {
         if (contentStub != null) {
             if (height >= rootView.getResources().getDimensionPixelSize(R.dimen.default_content_height)) {
                 contentStub.setLayoutResource(R.layout.content);
-            } else {
+            } else if (height >= rootView.getResources().getDimensionPixelSize(R.dimen.small_content_height)) {
                 contentStub.setLayoutResource(R.layout.content_small);
             }
-            contentStub.inflate();
+
+            if (contentStub.getLayoutResource() > 0) {
+                contentStub.inflate();
+            }
         }
         notifyRootCreated();
         return rootView;

@@ -8,10 +8,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.testspace.debugkeyboard.util.DisplayInfo;
+import com.testspace.debugkeyboard.util.InfoRepresenter;
 import com.testspace.debugkeyboard.viewholders.RootViewHolder;
 import com.testspace.debugkeyboard.viewholders.ViewCreatedCallback;
-
-import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -21,17 +20,20 @@ public class RootViewController {
     private final ActionsDispatcher actionsDispatcher;
     private final DisplayInfo displayInfo;
     private final KeyboardController keyboardController;
+    private final InfoRepresenter infoRepresenter;
 
     @Nullable private View btnIncrease;
     @Nullable private View btnDecrease;
-    @NonNull private TextView textViewInfo;
+    @Nullable private TextView textViewInfo;
     @Nullable private SeekBar seekBar;
 
     @Inject
     public RootViewController(RootViewHolder rootViewHolder,
+                              InfoRepresenter infoRepresenter,
                               DisplayInfo displayInfo,
                               ActionsDispatcher actionsDispatcher,
                               KeyboardController keyboardController) {
+        this.infoRepresenter = infoRepresenter;
         this.displayInfo = displayInfo;
         this.keyboardController = keyboardController;
         this.actionsDispatcher = actionsDispatcher;
@@ -53,16 +55,19 @@ public class RootViewController {
         textViewInfo = (TextView) rootView.findViewById(R.id.textViewInfo);
         seekBar = (SeekBar) rootView.findViewById(R.id.seekBar);
 
-        represent(textViewInfo, keyboardController.getKeyboardSize(), displayInfo.getHeight());
+        if (textViewInfo != null) {
+            textViewInfo.setText(infoRepresenter.getInfo());
 
-        if (btnIncrease == null && seekBar == null) {
-            textViewInfo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    actionsDispatcher.setSize(keyboardController.getDefaultKeyboardSize());
-                }
-            });
+            if (btnIncrease == null && seekBar == null) {
+                textViewInfo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        actionsDispatcher.setSize(keyboardController.getDefaultKeyboardSize());
+                    }
+                });
+            }
         }
+
 
         if (btnIncrease != null) {
             btnIncrease.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +95,8 @@ public class RootViewController {
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                    represent(textViewInfo, seekBar.getProgress(), seekBar.getMax());
+                    textViewInfo.setText(
+                            InfoRepresenter.represent(seekBar.getProgress(), seekBar.getMax()));
                 }
 
                 @Override
@@ -101,21 +107,8 @@ public class RootViewController {
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     actionsDispatcher.setSize(seekBar.getProgress());
-
                 }
             });
         }
-    }
-
-    private void represent(TextView textView, float value, float total) {
-        float density = 1;//displayInfo.getDensity();
-//        float value = seekBar.getProgress();
-//        float total = seekBar.getMax();
-        int percent = (int) ((value / total) * 100f);
-
-        String percentage = String.format(Locale.US,
-                "%d%% (%d / %d px)", percent, (int) (value * density), (int) (total * density));
-
-        textView.setText(percentage);
     }
 }

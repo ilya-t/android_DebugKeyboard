@@ -20,20 +20,16 @@
             />
 
         <TextView
+            style="@style/InfoText"
             android:id="@+id/textViewInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:textColor="@android:color/white"
             />
     </LinearLayout>
     <Button
+        style="@style/SizeChangeButton"
         android:id="@+id/decrease"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
         android:layout_gravity="left|center_vertical"
         android:text="-"
         />
@@ -41,8 +37,7 @@
 
     <Button
         android:id="@+id/increase"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        style="@style/SizeChangeButton"
         android:layout_gravity="right|center_vertical"
         android:text="+"/>
 

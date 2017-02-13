@@ -7,13 +7,10 @@
 
     <TextView
         android:id="@+id/textViewInfo"
+        style="@style/InfoText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:textSize="12sp"
-        android:textStyle="bold"
-        android:maxLines="1"
-        android:textColor="@android:color/white"
         />
 
 </FrameLayout>

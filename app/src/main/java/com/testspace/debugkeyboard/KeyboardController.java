@@ -23,6 +23,9 @@ public class KeyboardController {
     }
 
     private void setKeyboardSize(int keyboardSize) {
+        if (keyboardSize < 0 || keyboardSize > displayInfo.getHeight()) {
+            return;
+        }
         this.keyboardSize = keyboardSize;
         keyboardViewHolder.updateKeyboard(keyboardSize);
     }
