@@ -1,6 +1,5 @@
-package com.testspace.debugkeyboard;
+package com.testspace.debugkeyboard.service;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
 import android.view.InputDevice;
@@ -8,8 +7,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
+import com.testspace.debugkeyboard.KeyEventsTranslator;
+import com.testspace.debugkeyboard.KeyboardController;
+import com.testspace.debugkeyboard.RootViewController;
 import com.testspace.debugkeyboard.dagger.Dagger;
-import com.testspace.debugkeyboard.service.IntentHandler;
 import com.testspace.debugkeyboard.viewholders.KeyboardViewHolder;
 
 import javax.inject.Inject;
@@ -20,10 +21,13 @@ public class KeyboardService extends InputMethodService {
     public static final String ACTION_DECREASE = "action:dec";
     public static final String EXTRA_ACTION = "extra:action";
 
-    @Inject KeyboardController keyboardController;
+    @Inject
+    KeyboardController keyboardController;
     @Inject KeyboardViewHolder keyboardViewHolder;
-    @Inject KeyEventsTranslator keyEventsTranslator;
-    @Inject RootViewController rootViewController;
+    @Inject
+    KeyEventsTranslator keyEventsTranslator;
+    @Inject
+    RootViewController rootViewController;
 
     @Override
     public void onStartInputView(EditorInfo info, boolean restarting) {

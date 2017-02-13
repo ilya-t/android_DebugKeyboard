@@ -1,10 +1,10 @@
-package com.testspace.debugkeyboard;
+package com.testspace.debugkeyboard.service;
 
-import android.app.Service;
 import android.inputmethodservice.InputMethodService;
 import android.os.Handler;
 
-import com.testspace.debugkeyboard.util.DisplayInfo;
+import com.testspace.debugkeyboard.ActionListener;
+import com.testspace.debugkeyboard.ActionsDispatcher;
 import com.testspace.debugkeyboard.util.InfoRepresenter;
 
 import javax.inject.Inject;

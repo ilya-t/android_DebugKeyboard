@@ -1,4 +1,4 @@
-package com.testspace.debugkeyboard;
+package com.testspace.debugkeyboard.service;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -6,9 +6,11 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.inputmethodservice.InputMethodService;
+import android.renderscript.RenderScript;
 import android.support.v7.app.NotificationCompat;
 import android.widget.RemoteViews;
+
+import com.testspace.debugkeyboard.R;
 
 public class SizeNotification {
     private final int notificationId;
@@ -38,6 +40,7 @@ public class SizeNotification {
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new NotificationCompat.Builder(context)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(Notification.CATEGORY_ALARM)
                 .setOngoing(true)
                 .setContentTitle("Debug Keyboard")

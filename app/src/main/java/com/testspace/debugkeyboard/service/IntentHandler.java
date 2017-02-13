@@ -7,7 +7,6 @@ import android.text.TextUtils;
 
 import com.testspace.debugkeyboard.ActionsDispatcher;
 import com.testspace.debugkeyboard.KeyboardController;
-import com.testspace.debugkeyboard.KeyboardService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

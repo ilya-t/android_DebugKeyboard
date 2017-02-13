@@ -25,15 +25,15 @@
         android:layout_alignParentRight="true"
         >
         <Button
-            android:id="@+id/notification_btnInc"
-            style="@style/SizeChangeButton"
-            android:text="+"
-            />
-
-        <Button
             android:id="@+id/notification_btnDec"
             style="@style/SizeChangeButton"
             android:text="-"
+            />
+
+        <Button
+            android:id="@+id/notification_btnInc"
+            style="@style/SizeChangeButton"
+            android:text="+"
             />
 
         <ImageButton
