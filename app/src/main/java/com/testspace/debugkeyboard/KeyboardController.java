@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 @Singleton
 public class KeyboardController {
     private final KeyboardViewHolder keyboardViewHolder;
+    private final DisplayInfo displayInfo;
     private int keyboardSize;
 
     @Inject
@@ -17,12 +18,17 @@ public class KeyboardController {
                        DisplayInfo displayInfo) {
         actionsDispatcher.addActionListener(new ActionListenerImpl());
         this.keyboardViewHolder = keyboardViewHolder;
-        keyboardSize = displayInfo.getHeight() / 3;
+        this.displayInfo = displayInfo;
+        keyboardSize = getDefaultKeyboardSize();
     }
 
     private void setKeyboardSize(int keyboardSize) {
         this.keyboardSize = keyboardSize;
         keyboardViewHolder.updateKeyboard(keyboardSize);
+    }
+
+    public int getDefaultKeyboardSize() {
+        return displayInfo.getHeight() / 3;
     }
 
     public int getKeyboardSize() {

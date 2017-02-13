@@ -8,9 +8,9 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.testspace.debugkeyboard.util.DisplayInfo;
 import com.testspace.debugkeyboard.FixedSizeKeyboard;
 import com.testspace.debugkeyboard.R;
+import com.testspace.debugkeyboard.util.DisplayInfo;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -45,7 +45,7 @@ public class KeyboardViewHolder {
     }
 
     public View createView(int height) {
-        ViewGroup rootView = rootViewHolder.createRoot();
+        ViewGroup rootView = rootViewHolder.createRoot(height);
         keyboardView = (KeyboardView) rootView.findViewById(R.id.keyboardView);
         keyboardView.setKeyboard(createKeyboard(height));
         for (ViewCreatedCallback<KeyboardView> callback : callbackList) {

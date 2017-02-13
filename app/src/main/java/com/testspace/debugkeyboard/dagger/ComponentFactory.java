@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 
-public class ComponentFactory {
+class ComponentFactory {
 
     @Singleton
     @Component(

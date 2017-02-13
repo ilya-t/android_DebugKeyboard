@@ -1,6 +1,7 @@
 package com.testspace.debugkeyboard.util;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 
 import javax.inject.Inject;
 
@@ -22,5 +23,9 @@ public class DisplayInfo {
 
     public int getHeight() {
         return context.getResources().getDisplayMetrics().heightPixels;
+    }
+
+    public float getDensity() {
+        return context.getResources().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT;
     }
 }
