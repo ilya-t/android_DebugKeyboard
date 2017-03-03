@@ -4,11 +4,9 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
-/**
- * Created by i-ts on 27.01.17.
- */
-
+@Singleton
 public class DisplayInfo {
     private final Context context;
 

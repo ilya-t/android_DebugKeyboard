@@ -4,10 +4,6 @@ import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.view.LayoutInflater;
 
-import com.testspace.debugkeyboard.util.DisplayInfo;
-
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -34,11 +30,5 @@ public class CoreModule {
     @Provides
     Context provideContext() {
         return context;
-    }
-
-    @Provides
-    @Singleton
-    DisplayInfo provideDisplayInfo(Context context) {
-        return new DisplayInfo(context);
     }
 }
