@@ -10,16 +10,19 @@ import javax.inject.Singleton;
 public class KeyboardController {
     private final KeyboardViewHolder keyboardViewHolder;
     private final DisplayInfo displayInfo;
+    private final PersistentStorage persistentStorage;
     private int keyboardSize;
 
     @Inject
     KeyboardController(ActionsDispatcher actionsDispatcher,
                        KeyboardViewHolder keyboardViewHolder,
-                       DisplayInfo displayInfo) {
+                       DisplayInfo displayInfo,
+                       PersistentStorage persistentStorage) {
         actionsDispatcher.addActionListener(new ActionListenerImpl());
         this.keyboardViewHolder = keyboardViewHolder;
         this.displayInfo = displayInfo;
-        keyboardSize = getDefaultKeyboardSize();
+        this.persistentStorage = persistentStorage;
+        keyboardSize = persistentStorage.getSavedHeightPx();
     }
 
     private void setKeyboardSize(int keyboardSize) {
@@ -27,11 +30,12 @@ public class KeyboardController {
             return;
         }
         this.keyboardSize = keyboardSize;
+        persistentStorage.setSavedHeightPx(keyboardSize);
         keyboardViewHolder.updateKeyboard(keyboardSize);
     }
 
     public int getDefaultKeyboardSize() {
-        return displayInfo.getHeight() / 3;
+        return persistentStorage.getDefaultKeyboardHeight();
     }
 
     public int getKeyboardSize() {
