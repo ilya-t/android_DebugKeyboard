@@ -1,18 +1,21 @@
 package com.testspace.debugkeyboard.service;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.renderscript.RenderScript;
-import android.support.v7.app.NotificationCompat;
+import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.testspace.debugkeyboard.R;
 
 public class SizeNotification {
+    private static final String CHANNEL_ID = "sie_notification_channel";
+    private static final String CHANNEL_DESC = "Keyboard size notification";
     private final int notificationId;
     private final Context context;
     private final NotificationManager notificationManager;
@@ -39,10 +42,10 @@ public class SizeNotification {
         Intent intent = new Intent();
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification = new NotificationCompat.Builder(context)
+        prepareNotificationChannel();
+        Notification notification = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setCategory(Notification.CATEGORY_ALARM)
-                .setOngoing(true)
+                .setOngoing(false)
                 .setContentTitle("Debug Keyboard")
                 .setContentText("Size adjustment")
                 .setContentIntent(resultPendingIntent)
@@ -53,6 +56,15 @@ public class SizeNotification {
 
         updateRemoteViews(notification);
         return notification;
+    }
+
+    private void prepareNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            /* Create or update. */
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_DESC,
+                    NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     private void updateRemoteViews(Notification notification) {
