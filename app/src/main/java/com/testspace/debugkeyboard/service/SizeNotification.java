@@ -7,7 +7,11 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.DrawableRes;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
@@ -20,10 +24,12 @@ public class SizeNotification {
     private final Context context;
     private final NotificationManager notificationManager;
     private final Service service;
+    private final Bitmap icMinus;
+    private final Bitmap icPlus;
+    private final Bitmap icRestore;
     private String info;
     private int requestCode;
     private boolean notificationExists;
-    private boolean ongoing;
 
 
     public SizeNotification(int notificationId, Service service) {
@@ -32,6 +38,21 @@ public class SizeNotification {
         this.context = service.getApplicationContext();
         this.service = service;
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        icMinus = vectorToBitmap(R.drawable.ic_minus);
+        icPlus = vectorToBitmap(R.drawable.ic_plus);
+        icRestore = vectorToBitmap(R.drawable.ic_restore);
+    }
+
+    private Bitmap vectorToBitmap(@DrawableRes int drawableId) {
+        Drawable d = context.getResources().getDrawable(drawableId);
+        Bitmap bitmap = Bitmap.createBitmap(d.getIntrinsicWidth(), d.getIntrinsicHeight(),
+                Bitmap.Config.ARGB_4444);
+
+        Canvas canvas = new Canvas(bitmap);
+        d.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        d.draw(canvas);
+        return bitmap;
     }
 
     public SizeNotification setInfo(String info) {
@@ -72,7 +93,9 @@ public class SizeNotification {
         RemoteViews rv = notification.contentView;
 
         rv.setTextViewText(R.id.notification_tvInfo, info);
-
+        rv.setBitmap(R.id.notification_btnInc, "setImageBitmap", icPlus);
+        rv.setBitmap(R.id.notification_btnDec, "setImageBitmap", icMinus);
+        rv.setBitmap(R.id.notification_btnReset, "setImageBitmap", icRestore);
         rv.setOnClickPendingIntent(R.id.notification_btnReset, pendingIntent(KeyboardService.ACTION_RESET));
         rv.setOnClickPendingIntent(R.id.notification_btnInc, pendingIntent(KeyboardService.ACTION_INCREASE));
         rv.setOnClickPendingIntent(R.id.notification_btnDec,pendingIntent(KeyboardService.ACTION_DECREASE));

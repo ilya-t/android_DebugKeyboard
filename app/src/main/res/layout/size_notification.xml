@@ -8,7 +8,7 @@
         style="@style/InfoText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello precentage is poor"
+        android:text="Hello percentage is poor"
         android:layout_gravity="center_vertical"
         android:layout_toLeftOf="@+id/layout_controls"
         android:layout_toStartOf="@+id/layout_controls"
@@ -22,24 +22,20 @@
         android:orientation="horizontal"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        >
-        <Button
+        android:layout_alignParentRight="true">
+        <ImageView
             android:id="@+id/notification_btnDec"
             style="@style/SizeChangeButton"
-            android:text="-"
-            />
+            android:padding="12dp"/>
 
-        <Button
+        <ImageView
             android:id="@+id/notification_btnInc"
             style="@style/SizeChangeButton"
-            android:text="+"
-            />
+            android:padding="12dp"/>
 
-        <ImageButton
+        <ImageView
             android:id="@+id/notification_btnReset"
             style="@style/SizeChangeButton"
-            android:src="@android:drawable/ic_menu_revert"
-            />
+            android:padding="12dp"/>
     </LinearLayout>
 </RelativeLayout>
