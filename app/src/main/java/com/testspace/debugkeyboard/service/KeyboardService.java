@@ -32,7 +32,7 @@ public class KeyboardService extends InputMethodService {
     @Override
     public void onStartInputView(EditorInfo info, boolean restarting) {
         super.onStartInputView(info, restarting);
-        notificationController.update();
+        notificationController.showNotificationIfSmall();
     }
 
     @Override

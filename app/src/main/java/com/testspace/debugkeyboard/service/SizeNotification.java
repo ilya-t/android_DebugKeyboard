@@ -23,6 +23,7 @@ public class SizeNotification {
     private String info;
     private int requestCode;
     private boolean notificationExists;
+    private boolean ongoing;
 
 
     public SizeNotification(int notificationId, Service service) {
@@ -45,7 +46,7 @@ public class SizeNotification {
         prepareNotificationChannel();
         Notification notification = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setOngoing(false)
+                .setOngoing(true)
                 .setContentTitle("Debug Keyboard")
                 .setContentText("Size adjustment")
                 .setContentIntent(resultPendingIntent)

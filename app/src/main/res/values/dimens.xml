@@ -2,4 +2,5 @@
 <resources>
     <dimen name="default_content_height">100dp</dimen>
     <dimen name="small_content_height">12dp</dimen>
+    <dimen name="tiny_content_height">8dp</dimen>
 </resources>

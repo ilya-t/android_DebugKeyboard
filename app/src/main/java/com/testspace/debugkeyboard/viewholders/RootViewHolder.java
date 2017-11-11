@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 
 import com.testspace.debugkeyboard.R;
+import com.testspace.debugkeyboard.util.KeyboardSizeResolver;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -16,6 +17,7 @@ import javax.inject.Singleton;
 @Singleton
 public class RootViewHolder {
     private final LayoutInflater inflater;
+    private final KeyboardSizeResolver sizeResolver;
     @Nullable private ViewGroup rootView;
     private List<ViewCreatedCallback<ViewGroup>> callbackList = new CopyOnWriteArrayList<>();
 
@@ -24,8 +26,10 @@ public class RootViewHolder {
     }
 
     @Inject
-    public RootViewHolder(LayoutInflater inflater) {
+    public RootViewHolder(LayoutInflater inflater,
+                          KeyboardSizeResolver sizeResolver) {
         this.inflater = inflater;
+        this.sizeResolver = sizeResolver;
     }
 
     public void addCallbackListener(ViewCreatedCallback<ViewGroup> callback) {
@@ -36,13 +40,9 @@ public class RootViewHolder {
 
     ViewGroup createRoot(int height) {
         rootView = (ViewGroup) inflater.inflate(R.layout.keyboard_root_layout, null);
-        ViewStub contentStub = (ViewStub) rootView.findViewById(R.id.contentStub);
+        ViewStub contentStub = rootView.findViewById(R.id.contentStub);
         if (contentStub != null) {
-            if (height >= rootView.getResources().getDimensionPixelSize(R.dimen.default_content_height)) {
-                contentStub.setLayoutResource(R.layout.content);
-            } else if (height >= rootView.getResources().getDimensionPixelSize(R.dimen.small_content_height)) {
-                contentStub.setLayoutResource(R.layout.content_small);
-            }
+            contentStub.setLayoutResource(sizeResolver.getSizeLayout(height));
 
             if (contentStub.getLayoutResource() > 0) {
                 contentStub.inflate();
