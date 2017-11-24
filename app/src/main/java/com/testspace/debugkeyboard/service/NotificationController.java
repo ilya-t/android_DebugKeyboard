@@ -57,6 +57,9 @@ public class NotificationController {
         }
 
         @Override
+        public void onRandomWord() { }
+
+        @Override
         public void setSize(int size) {
             showNotificationIfSmall();
         }

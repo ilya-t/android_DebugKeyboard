@@ -40,14 +40,7 @@ public class RootViewHolder {
 
     ViewGroup createRoot(int height) {
         rootView = (ViewGroup) inflater.inflate(R.layout.keyboard_root_layout, null);
-        ViewStub contentStub = rootView.findViewById(R.id.contentStub);
-        if (contentStub != null) {
-            contentStub.setLayoutResource(sizeResolver.getSizeLayout(height));
-
-            if (contentStub.getLayoutResource() > 0) {
-                contentStub.inflate();
-            }
-        }
+        inflater.inflate(sizeResolver.getSizeLayout(height), rootView);
         notifyRootCreated();
         return rootView;
     }

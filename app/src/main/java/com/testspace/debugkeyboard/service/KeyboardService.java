@@ -21,13 +21,10 @@ public class KeyboardService extends InputMethodService {
     public static final String ACTION_DECREASE = "action:dec";
     public static final String EXTRA_ACTION = "extra:action";
 
-    @Inject
-    KeyboardController keyboardController;
+    @Inject Bootstrapper bootstrapper;
+    @Inject KeyboardController keyboardController;
     @Inject KeyboardViewHolder keyboardViewHolder;
-    @Inject
-    KeyEventsTranslator keyEventsTranslator;
-    @Inject
-    RootViewController rootViewController;
+    @Inject KeyEventsTranslator keyEventsTranslator;
 
     @Override
     public void onStartInputView(EditorInfo info, boolean restarting) {
@@ -69,6 +66,4 @@ public class KeyboardService extends InputMethodService {
     public View onCreateInputView() {
         return keyboardViewHolder.createView(keyboardController.getKeyboardSize());
     }
-
-
 }

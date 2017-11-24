@@ -46,7 +46,7 @@ public class KeyboardViewHolder {
 
     public View createView(int height) {
         ViewGroup rootView = rootViewHolder.createRoot(height);
-        keyboardView = (KeyboardView) rootView.findViewById(R.id.keyboardView);
+        keyboardView = rootView.findViewById(R.id.keyboardView);
         keyboardView.setKeyboard(createKeyboard(height));
         for (ViewCreatedCallback<KeyboardView> callback : callbackList) {
             callback.onViewCreated(keyboardView);
@@ -57,20 +57,6 @@ public class KeyboardViewHolder {
     public void updateKeyboard(int height) {
         service.setInputView(createView(height));
     }
-
-/*
-        int width = getResources().getDisplayMetrics().widthPixels;
-
-        int anomaly_keyboard_top = 980;
-        int anomaly_keyboard_bottom = 1690;
-        int anomaly_screen_bottom = 1825;
-        int anomalyKeyboardHeight = anomaly_keyboard_bottom - anomaly_keyboard_top;
-
-        int height = getResou1rces().getDisplayMetrics().heightPixels / 2;
-
-        // mi5 Anomaly: ScreenSize 1688 KeyboardHeight: 700
-        height = 700;
-*/
 
     private Keyboard createKeyboard(int height) {
         return new FixedSizeKeyboard(context, R.xml.gerty, 0,

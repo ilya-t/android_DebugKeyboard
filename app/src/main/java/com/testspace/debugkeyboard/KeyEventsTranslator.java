@@ -51,12 +51,12 @@ public class KeyEventsTranslator {
 
     private void performAction(int keyCode) {
         if (KeyCodeConverter.isActionDown(keyCode)) {
-            actionsDispatcher.onSizeDecPressed();
+            actionsDispatcher.dispatchSizeDecPressed();
             return;
         }
 
         if (KeyCodeConverter.isActionUp(keyCode)) {
-            actionsDispatcher.onSizeIncPressed();
+            actionsDispatcher.dispatchSizeIncPressed();
             return;
         }
     }

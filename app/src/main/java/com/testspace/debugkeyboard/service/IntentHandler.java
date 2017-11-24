@@ -37,13 +37,13 @@ public class IntentHandler {
 
         switch (action) {
             case KeyboardService.ACTION_RESET:
-                actionDispatcher.setSize(keyboardController.getDefaultKeyboardSize());
+                actionDispatcher.dispatchSizeChanged(keyboardController.getDefaultKeyboardSize());
                 break;
             case KeyboardService.ACTION_INCREASE:
-                actionDispatcher.onSizeIncPressed();
+                actionDispatcher.dispatchSizeIncPressed();
                 break;
             case KeyboardService.ACTION_DECREASE:
-                actionDispatcher.onSizeDecPressed();
+                actionDispatcher.dispatchSizeDecPressed();
                 break;
         }
 

@@ -7,6 +7,15 @@
     android:layout_gravity="center"
     >
 
+    <Button
+        android:id="@+id/random_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/random_word"
+        android:layout_above="@+id/seekBar"
+        android:layout_centerHorizontal="true"
+        />
+
     <android.support.v7.widget.AppCompatImageView
         style="@style/SizeChangeButton"
         android:id="@+id/decrease"

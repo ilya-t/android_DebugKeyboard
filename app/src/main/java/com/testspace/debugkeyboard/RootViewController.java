@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.testspace.debugkeyboard.util.DisplayInfo;
 import com.testspace.debugkeyboard.util.InfoRepresenter;
 import com.testspace.debugkeyboard.viewholders.RootViewHolder;
-import com.testspace.debugkeyboard.viewholders.ViewCreatedCallback;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -31,6 +30,7 @@ public class RootViewController {
     @Nullable private View btnDecrease;
     @Nullable private TextView textViewInfo;
     @Nullable private SeekBar seekBar;
+    @Nullable private View btnRandom;
 
     @Inject
     public RootViewController(Context context,
@@ -56,6 +56,8 @@ public class RootViewController {
         btnDecrease = rootView.findViewById(R.id.decrease);
         textViewInfo = rootView.findViewById(R.id.textViewInfo);
         seekBar = rootView.findViewById(R.id.seekBar);
+        btnRandom = rootView.findViewById(R.id.random_word);
+
         if (seekBar != null) {
             seekBar.getProgressDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
             seekBar.getThumb().setColorFilter(resources.getColor(R.color.colorAccent),
@@ -67,17 +69,21 @@ public class RootViewController {
 
             if (btnIncrease == null && seekBar == null) {
                 textViewInfo.setOnClickListener(v ->
-                        actionsDispatcher.setSize(keyboardController.getDefaultKeyboardSize()));
+                        actionsDispatcher.dispatchSizeChanged(
+                                keyboardController.getDefaultKeyboardSize()));
             }
         }
 
+        if (btnRandom != null) {
+            btnRandom.setOnClickListener(v -> actionsDispatcher.dispatchRandomWord());
+        }
 
         if (btnIncrease != null) {
-            btnIncrease.setOnClickListener(v -> actionsDispatcher.onSizeIncPressed());
+            btnIncrease.setOnClickListener(v -> actionsDispatcher.dispatchSizeIncPressed());
         }
 
         if (btnDecrease != null) {
-            btnDecrease.setOnClickListener(v -> actionsDispatcher.onSizeDecPressed());
+            btnDecrease.setOnClickListener(v -> actionsDispatcher.dispatchSizeDecPressed());
         }
 
         if (seekBar != null) {
@@ -93,14 +99,12 @@ public class RootViewController {
                 }
 
                 @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    actionsDispatcher.dispatchSizeChanged(seekBar.getProgress());
                 }
 
                 @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    actionsDispatcher.setSize(seekBar.getProgress());
-                }
+                public void onStartTrackingTouch(SeekBar seekBar) {}
             });
         }
     }

@@ -54,6 +54,9 @@ public class KeyboardController {
         }
 
         @Override
+        public void onRandomWord() {}
+
+        @Override
         public void setSize(int size) {
             setKeyboardSize(size);
         }

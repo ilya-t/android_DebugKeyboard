@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class ActionsDispatcher implements ActionListener{
+public class ActionsDispatcher {
     private List<ActionListener> listenerList = new CopyOnWriteArrayList<>();
 
     @Inject
@@ -20,25 +20,27 @@ public class ActionsDispatcher implements ActionListener{
         }
     }
 
-    @Override
-    public void onSizeIncPressed() {
+    public void dispatchSizeIncPressed() {
         for (ActionListener listener : listenerList) {
             listener.onSizeIncPressed();
         }
     }
 
-    @Override
-    public void onSizeDecPressed() {
+    public void dispatchSizeDecPressed() {
         for (ActionListener listener : listenerList) {
             listener.onSizeDecPressed();
         }
     }
 
-    @Override
-    public void setSize(int size) {
+    public void dispatchSizeChanged(int size) {
         for (ActionListener listener : listenerList) {
             listener.setSize(size);
         }
+    }
 
+    public void dispatchRandomWord() {
+        for (ActionListener listener : listenerList) {
+            listener.onRandomWord();
+        }
     }
 }
