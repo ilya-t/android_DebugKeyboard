@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#FFFFFFFF</color>
     <color name="ripple_color">@color/colorAccent</color>
+    <color name="transparent">#00000000</color>
 </resources>

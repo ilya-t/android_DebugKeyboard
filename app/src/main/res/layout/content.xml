@@ -11,6 +11,8 @@
         android:id="@+id/random_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/round_button"
+        android:textColor="@color/colorPrimary"
         android:text="@string/random_word"
         android:layout_above="@+id/seekBar"
         android:layout_centerHorizontal="true"
