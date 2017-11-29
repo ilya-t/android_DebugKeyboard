@@ -15,20 +15,21 @@ public class KeyboardSizeResolver {
     private final Resources resources;
 
     public enum SizeType {
+        MICRO(R.dimen.micro_content_height, R.layout.content_micro),
         TINY(R.dimen.tiny_content_height, R.layout.content_small),
         SMALL(R.dimen.small_content_height, R.layout.content_small),
         NORMAL(R.dimen.default_content_height, R.layout.content);
 
-        @DimenRes private final int dimenId;
+        @DimenRes private final int minSupportedSize;
         @LayoutRes private final int layoutId;
 
-        SizeType(@DimenRes int dimenId, @LayoutRes int layoutId) {
-            this.dimenId = dimenId;
+        SizeType(@DimenRes int minSupportedSize, @LayoutRes int layoutId) {
+            this.minSupportedSize = minSupportedSize;
             this.layoutId = layoutId;
         }
 
         public int size(Resources resources) {
-            return resources.getDimensionPixelSize(dimenId);
+            return resources.getDimensionPixelSize(minSupportedSize);
         }
     }
 
@@ -47,8 +48,10 @@ public class KeyboardSizeResolver {
             return SizeType.NORMAL;
         } else if (height >= SizeType.SMALL.size(resources)) {
             return SizeType.SMALL;
-        } else {
+        } else if (height >= SizeType.TINY.size(resources)) {
             return SizeType.TINY;
+        } else {
+            return SizeType.MICRO;
         }
     }
 }
