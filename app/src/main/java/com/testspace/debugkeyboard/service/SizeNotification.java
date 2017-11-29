@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.NotificationCompat;
@@ -20,6 +21,9 @@ import com.testspace.debugkeyboard.R;
 public class SizeNotification {
     private static final String CHANNEL_ID = "sie_notification_channel";
     private static final String CHANNEL_DESC = "Keyboard size notification";
+    private static final long[] NO_VIBRATE = {};
+    private static final Uri NO_SOUND = null;
+
     private final int notificationId;
     private final Context context;
     private final NotificationManager notificationManager;
@@ -68,6 +72,8 @@ public class SizeNotification {
         Notification notification = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setOngoing(true)
+                .setSound(NO_SOUND)
+                .setVibrate(NO_VIBRATE)
                 .setContentTitle("Debug Keyboard")
                 .setContentText("Size adjustment")
                 .setContentIntent(resultPendingIntent)
