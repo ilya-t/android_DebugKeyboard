@@ -9,7 +9,6 @@ import android.view.inputmethod.EditorInfo;
 
 import com.testspace.debugkeyboard.KeyEventsTranslator;
 import com.testspace.debugkeyboard.KeyboardController;
-import com.testspace.debugkeyboard.RootViewController;
 import com.testspace.debugkeyboard.dagger.Dagger;
 import com.testspace.debugkeyboard.viewholders.KeyboardViewHolder;
 
@@ -25,6 +24,8 @@ public class KeyboardService extends InputMethodService {
     @Inject KeyboardController keyboardController;
     @Inject KeyboardViewHolder keyboardViewHolder;
     @Inject KeyEventsTranslator keyEventsTranslator;
+    @Inject NotificationController notificationController;
+    @Inject IntentHandler intentHandler;
 
     @Override
     public void onStartInputView(EditorInfo info, boolean restarting) {
@@ -38,9 +39,6 @@ public class KeyboardService extends InputMethodService {
         notificationController.remove();
     }
 
-    @Inject NotificationController notificationController;
-    @Inject IntentHandler intentHandler;
-
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (event.getSource() == InputDevice.SOURCE_KEYBOARD) {
@@ -53,6 +51,12 @@ public class KeyboardService extends InputMethodService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         intentHandler.handle(intent);
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        notificationController.remove();
     }
 
     @Override

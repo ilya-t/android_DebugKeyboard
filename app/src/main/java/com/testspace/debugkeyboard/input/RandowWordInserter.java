@@ -34,7 +34,7 @@ public class RandowWordInserter implements ActionListener {
     }
 
     @Override
-    public void onSizeIncPressed() { onRandomWord(); }
+    public void onSizeIncPressed() { /* Do Nothing */ }
 
     @Override
     public void onSizeDecPressed() { /* Do Nothing */ }
