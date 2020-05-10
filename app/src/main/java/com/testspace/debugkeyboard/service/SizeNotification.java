@@ -12,8 +12,8 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.DrawableRes;
-import android.support.v4.app.NotificationCompat;
+import androidx.annotation.DrawableRes;
+import androidx.core.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.testspace.debugkeyboard.R;

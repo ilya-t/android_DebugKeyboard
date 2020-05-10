@@ -4,7 +4,7 @@ import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.media.AudioManager;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.testspace.debugkeyboard.util.KeyCodeConverter;
 import com.testspace.debugkeyboard.viewholders.KeyboardViewHolder;

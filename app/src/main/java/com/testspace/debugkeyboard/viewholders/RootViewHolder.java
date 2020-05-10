@@ -1,9 +1,8 @@
 package com.testspace.debugkeyboard.viewholders;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 
 import com.testspace.debugkeyboard.R;
 import com.testspace.debugkeyboard.util.KeyboardSizeResolver;
