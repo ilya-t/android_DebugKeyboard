@@ -1,2 +1,7 @@
 /build
 *.iml
+
+# secrets
+/release
+google-services.json
+*.jks
