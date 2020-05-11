@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Debug Keyboard</string>
     <string name="random_word">random word</string>
+    <string name="open_settings">Open Input Method Setting</string>
+    <string name="crash_app">Crash App</string>
+    <string name="sample_input_hint">Sample Input</string>
+    <string name="sample_activity_label">Debug Keyboard</string>
 </resources>
