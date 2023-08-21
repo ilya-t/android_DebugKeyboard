@@ -66,7 +66,8 @@ public class SizeNotification {
 
     public Notification build() {
         Intent intent = new Intent();
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         prepareNotificationChannel();
         Notification notification = new NotificationCompat.Builder(context, CHANNEL_ID)
@@ -112,7 +113,7 @@ public class SizeNotification {
                 context, requestCode++,
                 new Intent(context, KeyboardService.class)
                         .putExtra(KeyboardService.EXTRA_ACTION, action),
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 
     public void update() {
